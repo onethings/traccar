@@ -181,6 +181,12 @@ public class HuabaoProtocolDecoder extends BaseProtocolDecoder {
             position.setLongitude(lon);
         }
 
+        if (BitUtil.check(flags, 10) || BitUtil.check(flags, 11) ) {
+            position.set(Position.KEY_ALARM, Position.ALARM_POWER_CUT);
+        } else {
+            position.set(Position.KEY_ALARM, Position.ALARM_POWER_CUT);		
+		}
+        
         position.setAltitude(buf.readShort());
         position.setSpeed(UnitsConverter.knotsFromKph(buf.readUnsignedShort() * 0.1));
         position.setCourse(buf.readUnsignedShort());
